@@ -8,10 +8,8 @@ namespace IPC2_Proyecto2_TuCarnet
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("=== SISTEMA DE CONTROL DE DRONES - IPC2 ===");
             Console.WriteLine("=== SISTEMA DE CONTROL DE DRONES - IPC2 ===\n");
 
-            // 1. Probar ListaDrones
             Console.WriteLine("--- Creando lista de drones (TDA propio) ---");
             ListaDrones listaDrones=new ListaDrones();
 
@@ -22,7 +20,6 @@ namespace IPC2_Proyecto2_TuCarnet
 
             Console.WriteLine("Drones sin ordenar:");
             listaDrones.MostrarTodosDrones();
-            listaDrones.MostrarTodosDrones();
 
             Console.WriteLine("\nOrdenando alfabéticamente...");
             listaDrones.OrdenarAlfabeticamente();
@@ -32,12 +29,11 @@ namespace IPC2_Proyecto2_TuCarnet
             TablaCorrespondencia tabla=new TablaCorrespondencia();
 
             tabla.Agregar("Dron01", 8, " ");  
-            tabla.Agregar("Dron01", 3, "H");
+            tabla.Agregar("Dron01",3, "H");
             tabla.Agregar("Dron02", 4, "E");
             tabla.Agregar("Dron03", 4, "L");
             tabla.Agregar("Dron04", 4, "L");
             tabla.Agregar("Dron03", 5, "O");
-
             tabla.MostrarTabla();
 
             Console.WriteLine("\n--- Probando búsqueda en tabla ---");
@@ -57,21 +53,20 @@ namespace IPC2_Proyecto2_TuCarnet
             instrucciones.MostrarTodosInstrucciones();
 
             Console.WriteLine("\n--- Creando mensaje completo ---");
-            Mensajes mensaje = new Mensajes("Saludo", "HELLO");
+            Mensajes mensaje=new Mensajes("Saludo", "HELLO");
 
             mensaje.Instrucciones.Agregar(new Instrucciones("Dron01", 3, "H"));
             mensaje.Instrucciones.Agregar(new Instrucciones("Dron04", 4, "E"));
             mensaje.Instrucciones.Agregar(new Instrucciones("Dron03", 4, "L"));
             mensaje.Instrucciones.Agregar(new Instrucciones("Dron02", 4, "L"));
             mensaje.Instrucciones.Agregar(new Instrucciones("Dron03", 5, "O"));
-
             mensaje.MostrarInformacion();
 
             Console.WriteLine("\n--- Creando lista de mensajes ---");
             ListaMensajes listaMensajes = new ListaMensajes();
             listaMensajes.Agregar(mensaje);
 
-            Mensajes mensaje2 = new Mensajes("Despedida", "BYE");
+            Mensajes mensaje2 =new Mensajes("Despedida", "BYE");
             mensaje2.Instrucciones.Agregar(new Instrucciones("Dron02", 2, "B"));
             mensaje2.Instrucciones.Agregar(new Instrucciones("Dron04", 7, "Y"));
             mensaje2.Instrucciones.Agregar(new Instrucciones("Dron01", 5, "E"));
@@ -79,7 +74,6 @@ namespace IPC2_Proyecto2_TuCarnet
 
             listaMensajes.MostrarTodosMensajes();
 
-            Console.WriteLine("\nTodo funcionando con TDAS popios (sin genéricos ni arrays)!");
             Console.WriteLine("\nPresiona cualquier tecla para salir...");
             Console.ReadKey();
         }

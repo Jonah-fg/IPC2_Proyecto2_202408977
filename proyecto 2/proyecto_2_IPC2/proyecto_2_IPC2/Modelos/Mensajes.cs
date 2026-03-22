@@ -14,7 +14,7 @@ namespace proyecto_2_IPC2.Modelos
 
     public Mensajes(string nombre, string texto)
         {
-            Nombre = nombre;
+            Nombre=nombre;
             TextoOriginal =texto;
             Instrucciones=new ListaInstrucciones();
             TiempoOptimo=0;
