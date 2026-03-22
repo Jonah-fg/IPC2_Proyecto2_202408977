@@ -52,13 +52,13 @@ namespace proyecto_2_IPC2.Estructuras
 
         public Dron Obtener(int posicion)
         {
-            if (posicion < 0 || posicion >= cantidad)
+            if (posicion < 0 || posicion>= cantidad)
                 return null;
 
             NodoDron actual = primero;
             for (int i = 0; i<posicion; i++)
             {
-                actual = actual.Siguiente;
+                actual=actual.Siguiente;
             }
             return actual.Dato;
         }
@@ -88,6 +88,47 @@ namespace proyecto_2_IPC2.Estructuras
             return false;
         }
 
+        public void MostrarTodosDrones()
+        {
+            Console.WriteLine("\n=== LISTA DE DRONES ===");
+            NodoDron actual = primero;
+            int i = 1;
+            while (actual !=null)
+            {
+                Console.WriteLine($"{i}. {actual.Dato}");
+                actual = actual.Siguiente;
+                i++;
+            }
+            Console.WriteLine($"Total: {cantidad} drones");
+        }
 
+        public void OrdenarAlfabeticamente()
+        {
+            if (cantidad <=1) return;
+
+            bool intercambio;
+            do
+            {
+                intercambio=false;
+                NodoDron actual =primero;
+
+                while (actual != null && actual.Siguiente != null)
+                {
+                    if (string.Compare(actual.Dato.Nombre, actual.Siguiente.Dato.Nombre) > 0)
+                    {
+                        Dron temp =actual.Dato;
+                        actual.Dato= actual.Siguiente.Dato;
+                        actual.Siguiente.Dato= temp;
+                        intercambio= true;
+                    }
+                    actual =actual.Siguiente;
+                }
+            }
+            while (intercambio);
+        }
+        public int Cantidad()
+        {
+            return cantidad;
+        }
     }
 }

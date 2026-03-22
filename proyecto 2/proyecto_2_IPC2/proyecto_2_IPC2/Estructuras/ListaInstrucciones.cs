@@ -48,7 +48,7 @@ namespace proyecto_2_IPC2.Estructuras
             return actual.Dato;
         }
 
-        public void MostrarTodosDrones()
+        public void MostrarTodosInstrucciones()
         {
             NodoInstruccion actual=primero;
             int i=1;
