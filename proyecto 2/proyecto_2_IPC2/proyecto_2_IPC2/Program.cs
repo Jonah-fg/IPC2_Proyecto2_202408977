@@ -8,75 +8,45 @@ namespace IPC2_Proyecto2_TuCarnet
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("=== SISTEMA DE CONTROL DE DRONES - IPC2 ===\n");
+            Console.WriteLine("=== SIMULADOR DE DRONES IPC2 ===\n");
 
-            Console.WriteLine("--- Creando lista de drones (TDA propio) ---");
-            ListaDrones listaDrones=new ListaDrones();
+            SistemaDrones sistema =new SistemaDrones("Sistema1", 5);
 
-            listaDrones.Agregar(new Dron("Dron01"));
-            listaDrones.Agregar(new Dron("Dron04"));
-            listaDrones.Agregar(new Dron("Dron02"));
-            listaDrones.Agregar(new Dron("Dron03"));
+            sistema.Drones.Agregar(new Dron("DronX"));
+            sistema.Drones.Agregar(new Dron("DronY"));
 
-            Console.WriteLine("Drones sin ordenar:");
-            listaDrones.MostrarTodosDrones();
+            sistema.Drones.Agregar(new Dron("DronZ"));
 
-            Console.WriteLine("\nOrdenando alfabéticamente...");
-            listaDrones.OrdenarAlfabeticamente();
-            listaDrones.MostrarTodosDrones();
+//tabla correspondencia
 
-            Console.WriteLine("\n--- Creando tabla de correspondencia ---");
-            TablaCorrespondencia tabla=new TablaCorrespondencia();
+            sistema.Tabla.Agregar("DronX", 2, "I");
+            sistema.Tabla.Agregar("DronY", 3, "P");
+            sistema.Tabla.Agregar("DronZ", 2, "C");
+            sistema.Tabla.Agregar("DronY", 1, "2");
 
-            tabla.Agregar("Dron01", 8, " ");  
-            tabla.Agregar("Dron01",3, "H");
-            tabla.Agregar("Dron02", 4, "E");
-            tabla.Agregar("Dron03", 4, "L");
-            tabla.Agregar("Dron04", 4, "L");
-            tabla.Agregar("Dron03", 5, "O");
-            tabla.MostrarTabla();
+            Mensajes mensaje =new Mensajes("Mensaje1", "IPC2");
 
-            Console.WriteLine("\n--- Probando búsqueda en tabla ---");
-            string letra=tabla.BuscarLetra("Dron03", 5);
-            Console.WriteLine($"Dron03 a 5m representa: '{letra}'");
+            mensaje.Instrucciones.Agregar(new Instrucciones("DronX",2, ""));
+            mensaje.Instrucciones.Agregar(new Instrucciones("DronY", 3, ""));
+            mensaje.Instrucciones.Agregar(new Instrucciones("DronZ", 2, ""));
+            mensaje.Instrucciones.Agregar(new Instrucciones("DronY", 1, ""));
 
-            Console.WriteLine("\n--- Creando instrucciones para un mensaje ---");
-            ListaInstrucciones instrucciones = new ListaInstrucciones();
+            SimuladorTiempo simulador =new SimuladorTiempo();
 
-            instrucciones.Agregar(new Instrucciones("Dron01", 3, "H"));
-            instrucciones.Agregar(new Instrucciones("Dron04", 4, "E"));
-            instrucciones.Agregar(new Instrucciones("Dron03", 4, "L"));
-            instrucciones.Agregar(new Instrucciones("Dron02", 4, "L"));
-            instrucciones.Agregar(new Instrucciones("Dron03", 5, "O"));
+            ResultadoSimulacion resultado =simulador.Simular(sistema.Drones, mensaje.Instrucciones);
+            mensaje.TiempoOptimo =resultado.TiempoOptimo;
+            mensaje.AccionesPorSegundo =resultado.Acciones;
 
-            Console.WriteLine("Instrucciones del mensaje:");
-            instrucciones.MostrarTodosInstrucciones();
+            string mensajeRecibido=mensaje.GenerarMensajeRecibido(sistema);
 
-            Console.WriteLine("\n--- Creando mensaje completo ---");
-            Mensajes mensaje=new Mensajes("Saludo", "HELLO");
+            Console.WriteLine("Sistema usado: " + sistema.Nombre);
+            Console.WriteLine("Mensaje esperado: " +mensaje.TextoOriginal);
+            Console.WriteLine("Mensaje recibido: "+ mensajeRecibido);
+            Console.WriteLine("\nTiempo óptimo: " + mensaje.TiempoOptimo + " segundos\n");
+            Console.WriteLine("=== ACCIONES POR SEGUNDO ===\n");
 
-            mensaje.Instrucciones.Agregar(new Instrucciones("Dron01", 3, "H"));
-            mensaje.Instrucciones.Agregar(new Instrucciones("Dron04", 4, "E"));
-            mensaje.Instrucciones.Agregar(new Instrucciones("Dron03", 4, "L"));
-            mensaje.Instrucciones.Agregar(new Instrucciones("Dron02", 4, "L"));
-            mensaje.Instrucciones.Agregar(new Instrucciones("Dron03", 5, "O"));
-            mensaje.MostrarInformacion();
-
-            Console.WriteLine("\n--- Creando lista de mensajes ---");
-            ListaMensajes listaMensajes = new ListaMensajes();
-            listaMensajes.Agregar(mensaje);
-
-            Mensajes mensaje2 =new Mensajes("Despedida", "BYE");
-            mensaje2.Instrucciones.Agregar(new Instrucciones("Dron02", 2, "B"));
-            mensaje2.Instrucciones.Agregar(new Instrucciones("Dron04", 7, "Y"));
-            mensaje2.Instrucciones.Agregar(new Instrucciones("Dron01", 5, "E"));
-            listaMensajes.Agregar(mensaje2);
-
-            listaMensajes.MostrarTodosMensajes();
-
-            Console.WriteLine("\nPresiona cualquier tecla para salir...");
+            mensaje.AccionesPorSegundo.MostrarTodasAcciones();
             Console.ReadKey();
         }
     }
-
 }

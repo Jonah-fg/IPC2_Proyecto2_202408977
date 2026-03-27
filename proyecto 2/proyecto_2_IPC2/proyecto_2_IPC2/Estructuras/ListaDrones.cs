@@ -126,6 +126,12 @@ namespace proyecto_2_IPC2.Estructuras
             }
             while (intercambio);
         }
+
+        public NodoDron ObtenerPrimero()
+        {
+            return primero;
+        }
+
         public int Cantidad()
         {
             return cantidad;

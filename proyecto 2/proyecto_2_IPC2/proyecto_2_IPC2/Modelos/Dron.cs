@@ -22,7 +22,7 @@ namespace proyecto_2_IPC2.Modelos
             if (AlturaActual<100) 
             {
                 AlturaActual++;
-                Console.WriteLine($"{Nombre} subió a {AlturaActual} metros");
+                //Console.WriteLine($"{Nombre} subió a {AlturaActual} metros");
             }
         }
 
@@ -37,13 +37,13 @@ namespace proyecto_2_IPC2.Modelos
         public void EmitirLuz()
         {
             EstaEmitiendoLuz=true;
-            Console.WriteLine($"{Nombre} emitiendo luz a {AlturaActual} metros");
+            //Console.WriteLine($"{Nombre} emitiendo luz a {AlturaActual} metros");
         }
 
         public void ApagarLuz()
         {
             EstaEmitiendoLuz=false;
-            Console.WriteLine($"{Nombre} apagó luz");
+           // Console.WriteLine($"{Nombre} apagó luz");
         }
 
         public void Esperar()

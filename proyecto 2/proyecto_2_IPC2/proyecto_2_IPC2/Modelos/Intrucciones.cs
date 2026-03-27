@@ -1,4 +1,5 @@
-﻿using System;
+﻿using proyecto_2_IPC2.Estructuras;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,9 +13,9 @@ namespace proyecto_2_IPC2.Modelos
 
         public Instrucciones(string nombreDron, int alturaObjetivo, string letra)
         {
-            NombreDron=nombreDron;
-            AlturaObjetivo=alturaObjetivo;
-            LetraRepresentada=letra;
+            NombreDron = nombreDron;
+            AlturaObjetivo = alturaObjetivo;
+            LetraRepresentada = letra;
         }
 
         public override string ToString()

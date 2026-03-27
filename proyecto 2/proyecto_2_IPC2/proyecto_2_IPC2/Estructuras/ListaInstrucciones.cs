@@ -60,6 +60,29 @@ namespace proyecto_2_IPC2.Estructuras
             }
         }
 
+        public bool Eliminar(int posicion)
+        {
+            if (posicion < 0 || posicion >= cantidad)
+                return false;
+
+            if (posicion ==0)
+            {
+                primero=primero.Siguiente;
+                cantidad--;
+                return true;
+            }
+
+            NodoInstruccion actual = primero;
+            for (int i = 0; i<posicion - 1; i++)
+            {
+                actual =actual.Siguiente;
+            }
+
+            actual.Siguiente = actual.Siguiente?.Siguiente;
+            cantidad--;
+            return true;
+        }
+
         public int Cantidad()
         {
             return cantidad;
