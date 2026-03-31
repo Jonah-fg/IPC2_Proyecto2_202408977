@@ -12,6 +12,7 @@ namespace proyecto_2_IPC2.Modelos
         public int AlturaMaxima { get; set; }
 
         public ListaDrones Drones { get; set; }
+        public ListaMensajes Mensajes { get; set; }
 
         public TablaCorrespondencia Tabla { get; set; }
 
@@ -21,6 +22,7 @@ namespace proyecto_2_IPC2.Modelos
             AlturaMaxima=alturaMaxima;
             Drones=new ListaDrones();
             Tabla=new TablaCorrespondencia();
+            Mensajes =new ListaMensajes();
         }
 
         public string ObtenerLetra(string dron, int altura)
@@ -40,6 +42,22 @@ namespace proyecto_2_IPC2.Modelos
                 resultado +=letra;
             }
             return resultado;
+        }
+
+        public void ProcesarMensajes()
+        {
+            SimuladorTiempo simulador =new SimuladorTiempo();
+
+            for (int i =0; i <Mensajes.Cantidad(); i++)
+            {
+                Mensajes mensaje =Mensajes.Obtener(i);
+
+                ResultadoSimulacion resultado =simulador.Simular(Drones, mensaje.Instrucciones);
+
+                mensaje.TiempoOptimo=resultado.TiempoOptimo;
+                mensaje.AccionesPorSegundo =resultado.Acciones;
+                mensaje.TextoOriginal=mensaje.GenerarMensajeRecibido(this);
+            }
         }
     }
 }

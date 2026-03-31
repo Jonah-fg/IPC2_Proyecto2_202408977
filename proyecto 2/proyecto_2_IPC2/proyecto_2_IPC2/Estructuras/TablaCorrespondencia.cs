@@ -6,7 +6,7 @@ namespace proyecto_2_IPC2.Estructuras
 {
     public class TablaCorrespondencia
     {
-        private NodoTabla primero;
+        public NodoTabla primero { get; set; }
         private int cantidad;
 
         public TablaCorrespondencia()
@@ -46,7 +46,7 @@ namespace proyecto_2_IPC2.Estructuras
                 }
                 actual = actual.Siguiente;
             }
-            return null; 
+            return ""; 
         }
 
         public void MostrarTabla()

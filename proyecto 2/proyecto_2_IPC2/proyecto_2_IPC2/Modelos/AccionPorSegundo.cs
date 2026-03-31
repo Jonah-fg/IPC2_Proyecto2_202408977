@@ -8,18 +8,18 @@ namespace proyecto_2_IPC2.Modelos
     {
         public int Segundo { get; set; }
         public string NombreDron { get; set; }
-        public string Accion { get; set; }
+        public string TipoAccion { get; set; }
 
         public AccionPorSegundo(int segundo, string nombreDron, string accion)
         {
             Segundo=segundo;
             NombreDron =nombreDron;
-            Accion =accion;
+            TipoAccion =accion;
         }
 
         public override string ToString()
         {
-            return $"Segundo {Segundo}: {NombreDron} - {Accion}";
+            return $"Segundo {Segundo}: {NombreDron} - {TipoAccion}";
         }
     }
 }

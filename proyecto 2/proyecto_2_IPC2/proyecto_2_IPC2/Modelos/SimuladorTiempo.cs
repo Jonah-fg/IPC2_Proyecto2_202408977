@@ -65,9 +65,7 @@ namespace proyecto_2_IPC2.Modelos
                             }
                         }
 
-                        resultado.Acciones.Agregar(
-                            new AccionPorSegundo(segundo, dron.Nombre, accion));
-
+                        resultado.Acciones.Agregar(new AccionPorSegundo(segundo, dron.Nombre, accion));
                         nododron= nododron.Siguiente;
                     }
                     segundo++;

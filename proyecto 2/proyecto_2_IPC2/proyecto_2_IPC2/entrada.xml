@@ -1,0 +1,33 @@
+﻿<sistemaDrones nombre="Sistema1" alturaMaxima="5">
+
+	<drones>
+
+		<dron nombre="DronX"/>
+		<dron nombre="DronY"/>
+		<dron nombre="DronZ"/>
+
+	</drones>
+
+	<tablaCorrespondencia>
+
+		<letra dron="DronX" altura="2">I</letra>
+		<letra dron="DronY" altura="3">P</letra>
+		<letra dron="DronZ" altura="2">C</letra>
+		<letra dron="DronY" altura="1">2</letra>
+
+	</tablaCorrespondencia>
+
+	<mensajes>
+
+		<mensaje nombre="Mensaje1">
+
+			<instruccion dron="DronX" altura="2"/>
+			<instruccion dron="DronY" altura="3"/>
+			<instruccion dron="DronZ" altura="2"/>
+			<instruccion dron="DronY" altura="1"/>
+
+		</mensaje>
+
+	</mensajes>
+
+</sistemaDrones>

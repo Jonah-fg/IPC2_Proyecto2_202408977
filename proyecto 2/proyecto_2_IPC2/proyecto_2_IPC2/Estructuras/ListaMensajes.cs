@@ -5,7 +5,7 @@ using System.Text;
 
 namespace proyecto_2_IPC2.Estructuras
 {
-    internal class ListaMensajes
+    public class ListaMensajes
     {
         private NodoMensajes primero;
         private int cantidad;
@@ -50,22 +50,60 @@ namespace proyecto_2_IPC2.Estructuras
             return null;
         }
 
-        public void MostrarTodosMensajes()
+        public Mensajes Obtener(int indice)
         {
-            Console.WriteLine("\n=== LISTA DE MENSAJES ===");
             NodoMensajes actual=primero;
-            int i=1;
-            while (actual!=null)
+            int contador=0;
+
+            while (actual!= null)
             {
-                Console.WriteLine($"{i}. {actual.Dato.Nombre} - '{actual.Dato.TextoOriginal}'");
-                actual =actual.Siguiente;
-                i++;
+                if (contador == indice)
+                {
+                    return actual.Dato;
+                }
+                contador++;
+                actual=actual.Siguiente;
             }
+            return null;
         }
 
         public int Cantidad()
         {
-            return cantidad;
+            int contador=0;
+            NodoMensajes actual= primero;
+
+            while (actual!=null)
+            {
+                contador++;
+                actual= actual.Siguiente;
+            }
+            return contador;
+        }
+
+        public void MostrarTodosMensajes()
+        {
+            Console.WriteLine("\n=== LISTA DE MENSAJES ===\n");
+
+            NodoMensajes actual= primero;
+            int contador = 1;
+
+            while (actual != null)
+            {
+                Mensajes m = actual.Dato;
+
+                Console.WriteLine("Mensaje: " + m.Nombre);
+                Console.WriteLine("\nTexto: " + m.TextoOriginal);
+                Console.WriteLine("\nTiempo óptimo: " +m.TiempoOptimo +" segundos");
+                Console.WriteLine("\nAcciones por segundo:\n");
+
+                if (m.AccionesPorSegundo != null)
+                {
+                    m.AccionesPorSegundo.MostrarTodasAcciones();
+                }
+                Console.WriteLine("\n---------------------\n");
+                contador++;
+                actual= actual.Siguiente;
+            }
         }
     }
 }

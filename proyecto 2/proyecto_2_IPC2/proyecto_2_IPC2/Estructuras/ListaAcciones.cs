@@ -7,7 +7,7 @@ namespace proyecto_2_IPC2.Estructuras
 {
     public class ListaAcciones
     {
-        private NodoAccion primero;
+        public NodoAccion primero { get; private set; }
         private int cantidad;
 
         public ListaAcciones()
