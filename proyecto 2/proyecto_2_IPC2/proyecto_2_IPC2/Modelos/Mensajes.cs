@@ -11,7 +11,8 @@ namespace proyecto_2_IPC2.Modelos
         public string TextoOriginal { get; set; }
         public ListaInstrucciones Instrucciones { get; set; }
         public int TiempoOptimo { get; set; }
-        public ListaAcciones AccionesPorSegundo { get; set; }
+        public string NombreSistema { get; set; }
+        public ListaAcciones AccionesPorSegundo{ get; set; }
 
         public Mensajes(string nombre, string texto)
         {
@@ -20,25 +21,18 @@ namespace proyecto_2_IPC2.Modelos
             Instrucciones=new ListaInstrucciones();
             AccionesPorSegundo =new ListaAcciones();
             TiempoOptimo =0;
+            NombreSistema="";
         }
 
         public string GenerarMensajeRecibido(SistemaDrones sistema)
         {
-            string resultado="";
+            return sistema.ReconstruirMensaje(Instrucciones);
 
-            for (int i = 0; i<Instrucciones.Cantidad(); i++)
-            {
-                Instrucciones inst=Instrucciones.Obtener(i);
-
-                string letra =sistema.ObtenerLetra(inst.NombreDron, inst.AlturaObjetivo);
-                resultado+= letra;
-            }
-            return resultado;
         }
 
         public void MostrarInformacion()
         {
-            Console.WriteLine($"\n--- Mensaje: {Nombre} ---");
+            Console.WriteLine($"\n----- Mensaje: {Nombre} -----");
             Console.WriteLine($"Texto: {TextoOriginal}");
             Console.WriteLine($"Instrucciones ({Instrucciones.Cantidad()}):");
 

@@ -34,6 +34,7 @@ namespace proyecto_2_IPC2.Estructuras
                 actual.Siguiente=nuevo;
             }
             cantidad++;
+            OrdenarAlfabeticamente();
         }
 
         public Dron Buscar(string nombre)
@@ -90,13 +91,14 @@ namespace proyecto_2_IPC2.Estructuras
 
         public void MostrarTodosDrones()
         {
+            OrdenarAlfabeticamente();
             Console.WriteLine("\n=== LISTA DE DRONES ===");
-            NodoDron actual = primero;
-            int i = 1;
+            NodoDron actual=primero;
+            int i =1;
             while (actual !=null)
             {
                 Console.WriteLine($"{i}. {actual.Dato}");
-                actual = actual.Siguiente;
+                actual =actual.Siguiente;
                 i++;
             }
             Console.WriteLine($"Total: {cantidad} drones");
@@ -104,7 +106,8 @@ namespace proyecto_2_IPC2.Estructuras
 
         public void OrdenarAlfabeticamente()
         {
-            if (cantidad <=1) return;
+            if (cantidad <=1)
+                return;
 
             bool intercambio;
             do

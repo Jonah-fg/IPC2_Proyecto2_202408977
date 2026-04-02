@@ -8,36 +8,71 @@ namespace proyecto_2_IPC2.Servicios
 {
     public class ReporteGraphviz
     {
-        public void GenerarDot(
-           SistemaDrones sistema)
+        public void GenerarReporteSistemas(ListaSistemas sistemas)
         {
+            if (sistemas.Cantidad() ==0) 
+                return;
 
-            for (int i =0; i <sistema.Mensajes.Cantidad(); i++)
+            using (StreamWriter sw=new StreamWriter("sistemas.dot"))
             {
-                Mensajes mensaje =sistema.Mensajes.Obtener(i);
-                string nombreArchivo ="mensaje_" + mensaje.Nombre + ".dot";
+                sw.WriteLine("digraph G {");
+                sw.WriteLine("rankdir=TB;");
+                sw.WriteLine("node [shape=box, style=filled, fillcolor=lightblue];");
+                sw.WriteLine("edge [color=gray];");
 
-                StreamWriter writer = new StreamWriter(nombreArchivo);
-
-                writer.WriteLine("digraph G {");
-                writer.WriteLine("rankdir=LR;");
-                writer.WriteLine( "node [shape=box];");
-
-                NodoAccion actual = mensaje.AccionesPorSegundo.primero;
-                while (actual!= null)
+                NodoSistema actual=sistemas.ObtenerPrimero();
+                while (actual !=null)
                 {
-                    string nodoTiempo = "t" + actual.Dato.Segundo;
-                    string nodoAccion =nodoTiempo +"_" + actual.Dato.NombreDron;
-                    writer.WriteLine(nodoTiempo +" [label=\"Segundo " + actual.Dato.Segundo +"\"];");
-                    writer.WriteLine(nodoAccion +" [label=\"" + actual.Dato.NombreDron + "\\n" + actual.Dato.TipoAccion + "\"];");
-                    writer.WriteLine(nodoTiempo + " -> " + nodoAccion + ";");
-
+                    SistemaDrones s=actual.Dato;
+                    sw.WriteLine($"\"{s.Nombre}\" [label=\"Sistema: {s.Nombre}\\nAltura máxima: {s.AlturaMaxima} m\"];");
                     actual =actual.Siguiente;
                 }
-                writer.WriteLine("}");
-                writer.Close();
+                sw.WriteLine("}");
+            }
+        }
+
+        public void GenerarDotMensaje(Mensajes mensaje, string nombreArchivo)
+        {
+            if (mensaje.AccionesPorSegundo ==null || mensaje.AccionesPorSegundo.Cantidad()==0)
+            {
+                Console.WriteLine("El mensaje no tiene acciones simuladas.");
+                return;
             }
 
+            using (StreamWriter sw= new StreamWriter(nombreArchivo))
+            {
+                sw.WriteLine("digraph G {");
+                sw.WriteLine("rankdir=LR;");
+                sw.WriteLine("node [shape=box];");
+                sw.WriteLine($"label=\"Mensaje: {mensaje.Nombre}\\nTexto: {mensaje.TextoOriginal}\\nTiempo óptimo: {mensaje.TiempoOptimo} s\";");
+                sw.WriteLine("labelloc=t;");
+                sw.WriteLine("fontsize=12;");
+
+                NodoAccion actual=mensaje.AccionesPorSegundo.primero;
+                int segundoActual =-1;
+                string nodoAnterior =null;
+
+                while (actual!= null)
+                {
+                    int seg=actual.Dato.Segundo;
+                    string dron=actual.Dato.NombreDron;
+                    string accion=actual.Dato.TipoAccion;
+
+                    string nodoTiempo =$"t{seg}";
+                    string nodoAccion =$"{nodoTiempo}_{dron}";
+
+                    if (seg !=segundoActual)
+                    {
+                        sw.WriteLine($"{nodoTiempo} [label=\"Segundo {seg}\", shape=ellipse];");
+                        segundoActual=seg;
+                        nodoAnterior=null;
+                    }
+                    sw.WriteLine($"{nodoAccion} [label=\"{dron}\\n{accion}\", shape=box];");
+                    sw.WriteLine($"{nodoTiempo} -> {nodoAccion};");
+                    actual=actual.Siguiente;
+                }
+                sw.WriteLine("}");
+            }
         }
 
         public void GenerarTablaCorrespondencia(SistemaDrones sistema)
@@ -51,7 +86,7 @@ namespace proyecto_2_IPC2.Servicios
             {
                 sw.WriteLine($"\"Altura {actual.Altura}\" -> \"{actual.Letra}\";");
 
-                actual =actual.Siguiente;
+                actual=actual.Siguiente;
             }
             sw.WriteLine("}");
             sw.Close();

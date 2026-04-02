@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Proyecto 2 IPC2</title>
+    <link rel="stylesheet" href="./estilos.css">
+</head>
+<body>
+    <h1>Proyecto 2 IPC2</h1>
+    <h2>Visualizador de mensajes</h2>
+    <hr>
+    <h3>Selecciona un mensaje:</h3>
+    <button onclick="verMensaje('Mensaje1.png')">Mensaje1</button>
+
+    <br><br>
+    <img id="visor" width="400">
+    <hr>
+    <h2>Tabla de correspondencia</h2>
+    <button onclick="verMensaje('tabla.png')">Ver tabla</button>
+    <br><br>
+    <img id="visorTabla" width="400" src="tabla.png">
+    <script>
+
+        function verMensaje(imagen)
+        {
+        document.getElementById("visor").src = imagen;
+        }
+    </script>
+</body>
+</html>

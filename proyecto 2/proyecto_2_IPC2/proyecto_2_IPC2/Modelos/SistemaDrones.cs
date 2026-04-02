@@ -1,6 +1,7 @@
 ﻿using proyecto_2_IPC2.Estructuras;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 
 namespace proyecto_2_IPC2.Modelos
@@ -8,21 +9,14 @@ namespace proyecto_2_IPC2.Modelos
     public class SistemaDrones
     {
         public string Nombre { get; set; }
-
         public int AlturaMaxima { get; set; }
-
-        public ListaDrones Drones { get; set; }
-        public ListaMensajes Mensajes { get; set; }
-
         public TablaCorrespondencia Tabla { get; set; }
 
         public SistemaDrones(string nombre, int alturaMaxima)
         {
-            Nombre =nombre;
-            AlturaMaxima=alturaMaxima;
-            Drones=new ListaDrones();
-            Tabla=new TablaCorrespondencia();
-            Mensajes =new ListaMensajes();
+            Nombre = nombre;
+            AlturaMaxima = alturaMaxima;
+            Tabla = new TablaCorrespondencia();
         }
 
         public string ObtenerLetra(string dron, int altura)
@@ -30,34 +24,17 @@ namespace proyecto_2_IPC2.Modelos
             return Tabla.BuscarLetra(dron, altura);
         }
 
-        public string ReconstruirMensaje(SistemaDrones sistema, ListaInstrucciones instrucciones)
+
+        public string ReconstruirMensaje(ListaInstrucciones instrucciones)
         {
             string resultado ="";
-
-            for (int i =0; i<instrucciones.Cantidad(); i++)
+            for (int i = 0; i<instrucciones.Cantidad(); i++)
             {
-                Instrucciones inst= instrucciones.Obtener(i);
-
-                string letra=sistema.ObtenerLetra(inst.NombreDron, inst.AlturaObjetivo);
+                Instrucciones inst=instrucciones.Obtener(i);
+                string letra =Tabla.BuscarLetra(inst.NombreDron, inst.AlturaObjetivo);
                 resultado +=letra;
             }
             return resultado;
-        }
-
-        public void ProcesarMensajes()
-        {
-            SimuladorTiempo simulador =new SimuladorTiempo();
-
-            for (int i =0; i <Mensajes.Cantidad(); i++)
-            {
-                Mensajes mensaje =Mensajes.Obtener(i);
-
-                ResultadoSimulacion resultado =simulador.Simular(Drones, mensaje.Instrucciones);
-
-                mensaje.TiempoOptimo=resultado.TiempoOptimo;
-                mensaje.AccionesPorSegundo =resultado.Acciones;
-                mensaje.TextoOriginal=mensaje.GenerarMensajeRecibido(this);
-            }
         }
     }
 }

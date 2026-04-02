@@ -50,12 +50,12 @@ namespace proyecto_2_IPC2.Estructuras
 
         public void MostrarTodosInstrucciones()
         {
-            NodoInstruccion actual=primero;
-            int i=1;
-            while (actual!= null)
+            NodoInstruccion actual =primero;
+            int i =1;
+            while (actual != null)
             {
-                Console.WriteLine($"  {i}. {actual.Dato}");
-                actual=actual.Siguiente;
+                Console.WriteLine($" {i}. {actual.Dato.NombreDron} a {actual.Dato.AlturaObjetivo}m -> '{actual.Dato.LetraRepresentada}'");
+                actual = actual.Siguiente;
                 i++;
             }
         }
@@ -65,7 +65,7 @@ namespace proyecto_2_IPC2.Estructuras
             if (posicion < 0 || posicion >= cantidad)
                 return false;
 
-            if (posicion ==0)
+            if (posicion==0)
             {
                 primero=primero.Siguiente;
                 cantidad--;

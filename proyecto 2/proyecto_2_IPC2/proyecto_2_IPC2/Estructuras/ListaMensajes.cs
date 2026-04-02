@@ -20,18 +20,20 @@ namespace proyecto_2_IPC2.Estructuras
         {
             NodoMensajes nuevo=new NodoMensajes(mensaje);
 
-            if (primero==null)
+            if (primero == null || string.Compare(mensaje.Nombre, primero.Dato.Nombre) < 0)
             {
-                primero =nuevo;
+                nuevo.Siguiente = primero;
+                primero = nuevo;
             }
             else
             {
-                NodoMensajes actual=primero;
-                while (actual.Siguiente != null)
+                NodoMensajes actual =primero;
+                while (actual.Siguiente != null && string.Compare(mensaje.Nombre, actual.Siguiente.Dato.Nombre) > 0)
                 {
                     actual=actual.Siguiente;
                 }
-                actual.Siguiente=nuevo;
+                nuevo.Siguiente=actual.Siguiente;
+                actual.Siguiente = nuevo;
             }
             cantidad++;
         }
@@ -57,7 +59,7 @@ namespace proyecto_2_IPC2.Estructuras
 
             while (actual!= null)
             {
-                if (contador == indice)
+                if (contador ==indice)
                 {
                     return actual.Dato;
                 }
@@ -80,25 +82,47 @@ namespace proyecto_2_IPC2.Estructuras
             return contador;
         }
 
+        public void MostrarTodosOrdenados()
+        {
+            {
+                if (primero ==null)
+                {
+                    Console.WriteLine("No hay mensajes.");
+                    return;
+                }
+
+                Console.WriteLine("\n=== MENSAJES (ordenados) ===");
+                NodoMensajes actual = primero;
+                int i=1;
+                while (actual != null)
+                {
+                    Console.WriteLine($"{i}. {actual.Dato.Nombre} - Texto: {actual.Dato.TextoOriginal} - Sistema: {actual.Dato.NombreSistema}");
+                    actual =actual.Siguiente;
+                    i++;
+                }
+                Console.WriteLine($"Total: {cantidad} mensajes");
+            }
+        }
+
+
         public void MostrarTodosMensajes()
         {
             Console.WriteLine("\n=== LISTA DE MENSAJES ===\n");
 
             NodoMensajes actual= primero;
-            int contador = 1;
+            int contador=1;
 
-            while (actual != null)
+            while (actual !=null)
             {
-                Mensajes m = actual.Dato;
+                Mensajes men=actual.Dato;
 
-                Console.WriteLine("Mensaje: " + m.Nombre);
-                Console.WriteLine("\nTexto: " + m.TextoOriginal);
-                Console.WriteLine("\nTiempo óptimo: " +m.TiempoOptimo +" segundos");
+                Console.WriteLine("Mensaje: " + men.Nombre);
+                Console.WriteLine("\nTexto: " + men.TextoOriginal);
+                Console.WriteLine("\nTiempo óptimo: " +men.TiempoOptimo +" segundos");
                 Console.WriteLine("\nAcciones por segundo:\n");
-
-                if (m.AccionesPorSegundo != null)
+                if (men.AccionesPorSegundo != null)
                 {
-                    m.AccionesPorSegundo.MostrarTodasAcciones();
+                    men.AccionesPorSegundo.MostrarTodasAcciones();
                 }
                 Console.WriteLine("\n---------------------\n");
                 contador++;

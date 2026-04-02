@@ -1,33 +1,38 @@
-﻿<sistemaDrones nombre="Sistema1" alturaMaxima="5">
-
+﻿<configuracion>
 	<drones>
-
 		<dron nombre="DronX"/>
 		<dron nombre="DronY"/>
 		<dron nombre="DronZ"/>
-
+		<dron nombre="DronW"/>
 	</drones>
 
-	<tablaCorrespondencia>
-
-		<letra dron="DronX" altura="2">I</letra>
-		<letra dron="DronY" altura="3">P</letra>
-		<letra dron="DronZ" altura="2">C</letra>
-		<letra dron="DronY" altura="1">2</letra>
-
-	</tablaCorrespondencia>
+	<sistemasDrones>
+		<sistema nombre="Sistema1" alturaMaxima="100">
+			<tabla> 
+				<fila dron="DronX" altura="2" letra="I"/>
+				<fila dron="DronY" altura="3" letra="P"/>
+				<fila dron="DronZ" altura="2" letra="C"/>
+				<fila dron="DronW" altura="1" letra="2"/>
+				<fila dron="DronX" altura="1" letra="A"/>
+				<fila dron="DronX" altura="3" letra="B"/>
+				<fila dron="DronY" altura="1" letra="D"/>
+				<fila dron="DronY" altura="2" letra="E"/>
+				<fila dron="DronZ" altura="1" letra="G"/>
+				<fila dron="DronZ" altura="3" letra="H"/>
+				<fila dron="DronW" altura="2" letra="J"/>
+				<fila dron="DronW" altura="3" letra="K"/>
+			</tabla>
+		</sistema>
+	</sistemasDrones>
 
 	<mensajes>
-
-		<mensaje nombre="Mensaje1">
-
-			<instruccion dron="DronX" altura="2"/>
-			<instruccion dron="DronY" altura="3"/>
-			<instruccion dron="DronZ" altura="2"/>
-			<instruccion dron="DronY" altura="1"/>
-
+		<mensaje nombre="MensajeIPC2" texto="IPC2" sistema="Sistema1">
+			<instrucciones>
+				<instruccion dron="DronX" altura="2" letra="I"/>
+				<instruccion dron="DronY" altura="3" letra="P"/>
+				<instruccion dron="DronZ" altura="2" letra="C"/>
+				<instruccion dron="DronW" altura="1" letra="2"/>
+			</instrucciones>
 		</mensaje>
-
 	</mensajes>
-
-</sistemaDrones>
+</configuracion>
