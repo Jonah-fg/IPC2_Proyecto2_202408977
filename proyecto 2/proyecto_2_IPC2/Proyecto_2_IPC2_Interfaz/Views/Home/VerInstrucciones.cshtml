@@ -1,0 +1,23 @@
+﻿@model proyecto_2_IPC2.Modelos.Mensajes
+@{
+    ViewData["Title"] = "Instrucciones del Mensaje";
+    var sistema = ViewBag.Sistema as proyecto_2_IPC2.Modelos.SistemaDrones;
+}
+
+<h2>Instrucciones para enviar el mensaje: @Model.Nombre</h2>
+<p><strong>Sistema de drones:</strong> @Model.NombreSistema</p>
+<p><strong>Mensaje a enviar:</strong> @Model.TextoOriginal</p>
+<p><strong>Tiempo óptimo:</strong> @Model.TiempoOptimo segundos</p>
+
+<h3>Instrucciones (paso a paso):</h3>
+<ul>
+    @for (int i = 0; i<Model.Instrucciones.Cantidad(); i++)
+    {
+        var inst =Model.Instrucciones.Obtener(i);
+        string letra=sistema != null ? sistema.ObtenerLetra(inst.NombreDron, inst.AlturaObjetivo) : "?";
+        <li>@inst.NombreDron a @inst.AlturaObjetivo m -> '@letra'</li>
+    }
+</ul>
+
+<h3>Gráfico de acciones por segundo</h3>
+<img src="@Url.Action("GraficoMensaje", new {nombreMensaje = Model.Nombre })" class="img-fluid" />

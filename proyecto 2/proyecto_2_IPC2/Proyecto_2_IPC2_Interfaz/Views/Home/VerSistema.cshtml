@@ -1,0 +1,16 @@
+﻿@model proyecto_2_IPC2.Modelos.SistemaDrones
+@{
+    ViewData["Title"] = "Gráfico del sistema: " + Model.Nombre;
+}
+
+<h2>Gráfico del sistema: @Model.Nombre</h2>
+<p><strong>Altura máxima:</strong> @Model.AlturaMaxima m</p>
+
+<div class="text-center">
+    <img src="@Url.Action("GraficoSistema", new { nombre = Model.Nombre })" 
+         style="max-width: 100%; height: auto; border: 1px solid #ccc; padding: 10px;" />
+</div>
+
+<div class="mt-3">
+    <a asp-action="GestionSistemas" class="btn btn-secondary">Volver</a>
+</div>

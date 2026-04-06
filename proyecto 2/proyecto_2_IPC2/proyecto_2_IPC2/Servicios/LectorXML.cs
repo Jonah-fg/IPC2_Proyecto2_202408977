@@ -11,7 +11,7 @@ namespace proyecto_2_IPC2.Servicios
     {
         public void CargarConfiguracion(string ruta, GestorDatos gestor)
         {
-            XmlDocument doc = new XmlDocument();
+            XmlDocument doc= new XmlDocument();
             doc.Load(ruta);
 
             // Drones
@@ -27,7 +27,6 @@ namespace proyecto_2_IPC2.Servicios
                     }
                 }
             }
-
             // Sistemas de drones
             XmlNodeList nodosSistemas = doc.SelectNodes("//sistemasDrones/sistema");
             if (nodosSistemas != null)
@@ -37,18 +36,18 @@ namespace proyecto_2_IPC2.Servicios
                     string nombreSis =nodoSis.Attributes["nombre"].Value;
                     int alturaMax =int.Parse(nodoSis.Attributes["alturaMaxima"].Value);
 
-                    if (gestor.Sistemas.Buscar(nombreSis) == null)
+                    if (gestor.Sistemas.Buscar(nombreSis)==null)
                     {
-                        SistemaDrones sistema = new SistemaDrones(nombreSis, alturaMax);
+                        SistemaDrones sistema =new SistemaDrones(nombreSis, alturaMax);
 
-                        XmlNodeList filas = nodoSis.SelectNodes("tabla/fila");
+                        XmlNodeList filas =nodoSis.SelectNodes("tabla/fila");
                         if (filas != null)
                         {
                             foreach (XmlNode fila in filas)
                             {
-                                string dron = fila.Attributes["dron"].Value;
+                                string dron =fila.Attributes["dron"].Value;
                                 int altura = int.Parse(fila.Attributes["altura"].Value);
-                                string letra = fila.Attributes["letra"].Value;
+                                string letra=fila.Attributes["letra"].Value;
                                 sistema.Tabla.Agregar(dron, altura, letra);
                             }
                         }
@@ -56,7 +55,6 @@ namespace proyecto_2_IPC2.Servicios
                     }
                 }
             }
-
             // Mensajes
             XmlNodeList nodosMensajes= doc.SelectNodes("//mensajes/mensaje");
             if (nodosMensajes !=null)

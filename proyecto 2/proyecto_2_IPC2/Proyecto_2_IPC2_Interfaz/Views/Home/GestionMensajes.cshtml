@@ -1,0 +1,34 @@
+﻿@model proyecto_2_IPC2.Estructuras.ListaMensajes
+@{
+    ViewData["Title"] = "Gestión de Mensajes";
+}
+
+<h2>Gestión de Mensajes</h2>
+
+@if (Model.Cantidad() ==0)
+{
+    <div class="alert alert-info">No hay mensajes cargados.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr><th>Nombre</th><th>Texto</th><th>Sistema</th><th>Instrucciones</th></tr>
+        </thead>
+        <tbody>
+            @{
+                var actual= Model.ObtenerPrimero();
+                while (actual != null)
+                {
+                    <tr>
+                        <td>@actual.Dato.Nombre</td>
+                        <td>@actual.Dato.TextoOriginal</td>
+                        <td>@actual.Dato.NombreSistema</td>
+                        <td><a asp-action="VerInstrucciones" asp-route-nombreMensaje="@actual.Dato.Nombre" class="btn btn-sm btn-info">Ver</a></td>
+                    </tr>
+                    actual=actual.Siguiente;
+                }
+            }
+        </tbody>
+    </table>
+}

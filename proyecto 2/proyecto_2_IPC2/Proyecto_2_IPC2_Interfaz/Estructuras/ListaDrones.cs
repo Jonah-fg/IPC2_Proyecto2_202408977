@@ -130,6 +130,17 @@ namespace proyecto_2_IPC2.Estructuras
             while (intercambio);
         }
 
+        public void Reiniciar()
+        {
+            NodoDron actual =primero;
+            while (actual != null)
+            {
+                actual.Dato.AlturaActual=1;
+                actual.Dato.EstaEmitiendoLuz= false;
+                actual=actual.Siguiente;
+            }
+        }
+
         public NodoDron ObtenerPrimero()
         {
             return primero;

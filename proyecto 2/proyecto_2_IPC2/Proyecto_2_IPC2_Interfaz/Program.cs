@@ -1,8 +1,11 @@
-var builder = WebApplication.CreateBuilder(args);
+using proyecto_2_IPC2.Modelos;
+
+var builder=WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddSingleton<GestorDatos>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

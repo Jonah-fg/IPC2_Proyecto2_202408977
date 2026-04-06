@@ -23,6 +23,7 @@ namespace proyecto_2_IPC2.Modelos
             SimuladorTiempo simulador = new SimuladorTiempo();
             for (int i = 0; i<Mensajes.Cantidad(); i++)
             {
+                Drones.Reiniciar();
                 Mensajes msg=Mensajes.Obtener(i);
 
                 ResultadoSimulacion resultado =simulador.Simular(Drones, msg.Instrucciones);
@@ -32,7 +33,7 @@ namespace proyecto_2_IPC2.Modelos
                 SistemaDrones sistema= Sistemas.Buscar(msg.NombreSistema);
                 if (sistema !=null)
                 {
-                    msg.TextoOriginal = sistema.ReconstruirMensaje(msg.Instrucciones);
+                    msg.TextoOriginal =sistema.ReconstruirMensaje(msg.Instrucciones);
                 }
                 else
                 {

@@ -82,6 +82,11 @@ namespace proyecto_2_IPC2.Estructuras
             return contador;
         }
 
+        public NodoMensajes ObtenerPrimero()
+        {
+            return primero;
+        }
+
         public void MostrarTodosOrdenados()
         {
             {

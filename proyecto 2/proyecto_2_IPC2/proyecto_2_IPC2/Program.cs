@@ -270,7 +270,7 @@ namespace IPC2_Proyecto2_TuCarnet
             Console.WriteLine("Estudiante: Jonathan Eduardo Fuentes Garcia");
             Console.WriteLine("Carnet: 202408977");
             Console.WriteLine("\nDocumentación completa disponible en el repositorio.");
-            Console.WriteLine("Link: https://github.com/tu-usuario/IPC2_Proyecto2_202408977"); // Cambiar por el real
+            Console.WriteLine("Link: https://github.com/tu-usuario/IPC2_Proyecto2_202408977"); 
         }
     }
 }

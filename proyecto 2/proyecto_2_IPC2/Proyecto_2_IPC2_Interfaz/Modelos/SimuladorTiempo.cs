@@ -9,7 +9,7 @@ namespace proyecto_2_IPC2.Modelos
     {
         public ResultadoSimulacion Simular(ListaDrones drones, ListaInstrucciones instrucciones)
         {
-            ResultadoSimulacion resultado = new ResultadoSimulacion();
+            ResultadoSimulacion resultado=new ResultadoSimulacion();
             int segundo=1;
 
             for (int i=0; i<instrucciones.Cantidad(); i++)
@@ -64,7 +64,6 @@ namespace proyecto_2_IPC2.Modelos
                                 }
                             }
                         }
-
                         resultado.Acciones.Agregar(new AccionPorSegundo(segundo, dron.Nombre, accion));
                         nododron= nododron.Siguiente;
                     }

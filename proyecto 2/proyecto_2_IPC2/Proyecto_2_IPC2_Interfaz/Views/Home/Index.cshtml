@@ -1,8 +1,80 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Sistema de Drones IPC2</h1>
+    <p>Proyecto No. 2 - Interfaz Web</p>
+</div>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Cargar XML</h5>
+                <form method="post" asp-action="CargarXML" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <input type="file" name="archivo" class="form-control" accept=".xml" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cargar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Gestión de Drones</h5>
+                <p>Ver listado ordenado y agregar nuevos drones.</p>
+                <a asp-action="GestionDrones" class="btn btn-success">Ir</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Gestión de Sistemas</h5>
+                <p>Ver sistemas y gráficos Graphviz.</p>
+                <a asp-action="GestionSistemas" class="btn btn-success">Ir</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Gestión de Mensajes</h5>
+                <p>Ver mensajes e instrucciones.</p>
+                <a asp-action="GestionMensajes" class="btn btn-success">Ir</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Generar XML de Salida</h5>
+                <p>Descargar salida.xml</p>
+                <a asp-action="GenerarSalida" class="btn btn-warning">Descargar</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Ayuda</h5>
+                <p>Información del estudiante.</p>
+                <a asp-action="Ayuda" class="btn btn-info">Ver</a>
+            </div>
+        </div>
+    </div>
 </div>

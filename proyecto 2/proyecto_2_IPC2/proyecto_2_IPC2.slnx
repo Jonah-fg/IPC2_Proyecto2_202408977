@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="proyecto_2_IPC2/proyecto_2_IPC2.csproj" />
-  <Project Path="Proyecto_2_IPC2_Interfaz/Proyecto_2_IPC2_Interfaz.csproj" Id="ffb73188-7094-43f4-93e7-b2558f4b164b" />
+  <Project Path="proyecto_2_IPC2/proyecto_2_IPC2_Consola_Referencia.csproj" />
+  <Project Path="Proyecto_2_IPC2_Interfaz/Proyecto_2_IPC2_InterfazWeb_Final.csproj" Id="ffb73188-7094-43f4-93e7-b2558f4b164b" />
 </Solution>

@@ -1,0 +1,35 @@
+﻿@model proyecto_2_IPC2.Estructuras.ListaSistemas
+@{
+    ViewData["Title"] ="Gestión de Sistemas";
+}
+
+<h2>Gestión de Sistemas de Drones</h2>
+
+@if (Model.Cantidad()== 0)
+{
+    <div class="alert alert-info">No hay sistemas cargados.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr><th>Nombre</th><th>Altura Máxima</th><th>Gráfico</th></tr>
+        </thead>
+        <tbody>
+            @{
+                var actual =Model.ObtenerPrimero();
+                while (actual != null)
+                {
+                    <tr>
+                        <td>@actual.Dato.Nombre</td>
+                        <td>@actual.Dato.AlturaMaxima m</td>
+                        <td>
+                            <a asp-action="VerSistema" asp-route-nombre="@actual.Dato.Nombre" class="btn btn-sm btn-info">Ver gráfico</a>
+                        </td>
+                    </tr>
+                    actual=actual.Siguiente;
+                }
+            }
+        </tbody>
+    </table>
+}

@@ -11,44 +11,56 @@ namespace proyecto_2_IPC2.Servicios
     {
         public void CargarConfiguracion(string ruta, GestorDatos gestor)
         {
-            XmlDocument doc = new XmlDocument();
+            XmlDocument doc=new XmlDocument();
             doc.Load(ruta);
 
-            // Drones
-            XmlNodeList nodosDrones=doc.SelectNodes("//drones/dron");
-            if (nodosDrones != null)
+            //Drones
+            XmlNodeList nodosDrones=doc.SelectNodes("//listaDrones/dron");
+            if (nodosDrones !=null)
             {
                 foreach (XmlNode nodo in nodosDrones)
                 {
-                    string nombre = nodo.Attributes["nombre"].Value;
-                    if (gestor.Drones.Buscar(nombre) == null)
+                    string nombre = nodo.InnerText.Trim();
+                    if(!string.IsNullOrWhiteSpace(nombre) && gestor.Drones.Buscar(nombre) == null)
                     {
                         gestor.Drones.Agregar(new Dron(nombre));
                     }
                 }
             }
-
-            // Sistemas de drones
-            XmlNodeList nodosSistemas = doc.SelectNodes("//sistemasDrones/sistema");
-            if (nodosSistemas != null)
+            //Sistema Drones
+            XmlNodeList nodosSistemas =doc.SelectNodes("//listaSistemasDrones/sistemaDrones");
+            if (nodosSistemas!=null)
             {
                 foreach (XmlNode nodoSis in nodosSistemas)
                 {
-                    string nombreSis =nodoSis.Attributes["nombre"].Value;
-                    int alturaMax =int.Parse(nodoSis.Attributes["alturaMaxima"].Value);
+                    string nombreSis = nodoSis.Attributes["nombre"]?.Value;
+                    if (string.IsNullOrWhiteSpace(nombreSis))
+                        continue;
 
-                    if (gestor.Sistemas.Buscar(nombreSis) == null)
+                    XmlNode alturaMaxNode=nodoSis.SelectSingleNode("alturaMaxima");
+                    int alturaMax = alturaMaxNode != null ? int.Parse(alturaMaxNode.InnerText) :100;
+
+                    if (gestor.Sistemas.Buscar(nombreSis)== null)
                     {
-                        SistemaDrones sistema = new SistemaDrones(nombreSis, alturaMax);
+                        SistemaDrones sistema =new SistemaDrones(nombreSis, alturaMax);
 
-                        XmlNodeList filas = nodoSis.SelectNodes("tabla/fila");
-                        if (filas != null)
+
+                        XmlNodeList contenidos=nodoSis.SelectNodes("contenido");
+                        foreach (XmlNode contenido in contenidos)
                         {
-                            foreach (XmlNode fila in filas)
+                            string dron =contenido.SelectSingleNode("dron")?.InnerText.Trim();
+                            if (string.IsNullOrWhiteSpace(dron)) 
+                                continue;
+
+                            XmlNodeList alturas = contenido.SelectNodes("alturas/altura");
+                            foreach (XmlNode alturaNode in alturas)
                             {
-                                string dron = fila.Attributes["dron"].Value;
-                                int altura = int.Parse(fila.Attributes["altura"].Value);
-                                string letra = fila.Attributes["letra"].Value;
+                                string valorAltura =alturaNode.Attributes["valor"]?.Value;
+                                if (string.IsNullOrWhiteSpace(valorAltura))
+                                    continue;
+
+                                int altura =int.Parse(valorAltura);
+                                string letra=alturaNode.InnerText.Trim();
                                 sistema.Tabla.Agregar(dron, altura, letra);
                             }
                         }
@@ -56,31 +68,35 @@ namespace proyecto_2_IPC2.Servicios
                     }
                 }
             }
-
-            // Mensajes
-            XmlNodeList nodosMensajes= doc.SelectNodes("//mensajes/mensaje");
+            //Mensajes
+            XmlNodeList nodosMensajes=doc.SelectNodes("//listaMensajes/Mensaje");
             if (nodosMensajes !=null)
             {
                 foreach (XmlNode nodoMsg in nodosMensajes)
                 {
-                    string nombreMsg = nodoMsg.Attributes["nombre"].Value;
-                    string texto = nodoMsg.Attributes["texto"].Value;
-                    string nombreSistema = nodoMsg.Attributes["sistema"].Value;
+                    string nombreMsg=nodoMsg.Attributes["nombre"]?.Value;
+                    if (string.IsNullOrWhiteSpace(nombreMsg))
+                        continue;
 
-                    if (gestor.Mensajes.Buscar(nombreMsg) == null)
+                    string sistemaMsg=nodoMsg.SelectSingleNode("sistemaDrones")?.InnerText.Trim();
+                    if (string.IsNullOrWhiteSpace(sistemaMsg))
+                        continue;
+
+                    if (gestor.Mensajes.Buscar(nombreMsg)==null)
                     {
-                        Mensajes mensaje=new Mensajes(nombreMsg, texto);
-                        mensaje.NombreSistema = nombreSistema;
+                        Mensajes mensaje =new Mensajes(nombreMsg, "");
+                        mensaje.NombreSistema=sistemaMsg;
 
-                        XmlNodeList instruccionesNode = nodoMsg.SelectNodes("instrucciones/instruccion");
+                        XmlNodeList instruccionesNode=nodoMsg.SelectNodes("instrucciones/instruccion");
                         if (instruccionesNode != null)
                         {
                             foreach (XmlNode inst in instruccionesNode)
                             {
-                                string dron= inst.Attributes["dron"].Value;
-                                int altura =int.Parse(inst.Attributes["altura"].Value);
-                                string letra =inst.Attributes["letra"].Value;
-                                mensaje.Instrucciones.Agregar(new Instrucciones(dron, altura, letra));
+                                string dron =inst.Attributes["dron"]?.Value;
+                                if (string.IsNullOrWhiteSpace(dron))
+                                    continue;
+                                int altura= int.Parse(inst.InnerText.Trim());
+                                mensaje.Instrucciones.Agregar(new Instrucciones(dron, altura, ""));
                             }
                         }
                         gestor.Mensajes.Agregar(mensaje);
